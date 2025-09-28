@@ -1,4 +1,5 @@
 using System;
+using Unity.Mathematics;
 using UnityEngine;
 
 namespace CustomMath
@@ -7,20 +8,8 @@ namespace CustomMath
     public struct MyPlane
     {
         #region Variables
-        private Vector3 normal;
-        private float distance;
-
-        public Vector3 Normal
-        {
-            get { return normal; }
-            set { normal = value.normalized; }
-        }
-
-        public float Distance
-        {
-            get { return distance; }
-            set { distance = value; }
-        }
+        public Vector3 normal;
+        public float distance;
 
         public Vector3 Point
         {
@@ -45,6 +34,20 @@ namespace CustomMath
         {
             normal = Vector3.Normalize(Vector3.Cross(b - a, c - a));
             distance = -Vector3.Dot(normal, a);
+        }
+        #endregion
+
+
+        #region Operators
+        public static bool operator ==(MyPlane left, MyPlane right)
+        {
+            return Vector3.Dot(left.normal, right.normal) > 1f - math.EPSILON &&
+                    Mathf.Abs(left.distance - right.distance) < math.EPSILON;
+        }
+
+        public static bool operator !=(MyPlane left, MyPlane right)
+        {
+            return !(left == right);
         }
         #endregion
 
@@ -111,6 +114,21 @@ namespace CustomMath
         public override string ToString()
         {
             return $"(normal:{normal}, distance:{distance})";
+        }
+
+        public override bool Equals(object other)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Equals(MyPlane other)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override int GetHashCode()
+        {
+            throw new NotImplementedException();
         }
         #endregion
     }

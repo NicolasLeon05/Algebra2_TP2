@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using CustomMath;
 
 public class PointGrid : MonoBehaviour
 {
@@ -15,17 +16,22 @@ public class PointGrid : MonoBehaviour
     [Header("Target to check")]
     [SerializeField] private Transform target;
 
+    [Header("Debug Options")]
+    [SerializeField] private int selectedPointIndex = -1;
+    [SerializeField] private bool regenerateOnValidate = true;
+
     public List<VoronoiPoint> points = new List<VoronoiPoint>();
 
     private void OnValidate()
     {
-        GeneratePoints();
+        if (regenerateOnValidate)
+            GeneratePoints();
     }
 
     private void OnDrawGizmos()
     {
         if (points == null || points.Count == 0)
-            GeneratePoints();
+            return;
 
         Gizmos.color = Color.green;
         Gizmos.DrawWireCube(transform.position + cubeSize * 0.5f, cubeSize);
@@ -43,6 +49,18 @@ public class PointGrid : MonoBehaviour
 #if UNITY_EDITOR
             UnityEditor.Handles.Label(points[i].position + Vector3.up * 0.5f, i.ToString());
 #endif
+        }
+
+
+        if (selectedPointIndex >= 0 && selectedPointIndex < points.Count)
+        {
+            Gizmos.color = Color.cyan;
+            var selectedPoint = points[selectedPointIndex];
+            for (int i = 6; i < selectedPoint.cellPlanes.Count; i++)
+            {
+                Vector3 center = selectedPoint.cellPlanes[i].ClosestPointOnPlane(selectedPoint.position);
+                DrawPlane(selectedPoint.cellPlanes[i], center, 2f);
+            }
         }
     }
 
@@ -63,6 +81,11 @@ public class PointGrid : MonoBehaviour
         OrderPoints();
 
         VoronoiGenerator.BuildCells(points, transform.position, transform.position + cubeSize);
+
+        foreach (var p in points)
+        {
+            p.SortNeighbors(points);
+        }
     }
 
     private void OrderPoints()
@@ -80,7 +103,7 @@ public class PointGrid : MonoBehaviour
         {
             float distToBorder = Mathf.Min(
                 Mathf.Min(Mathf.Abs(p.position.x - cubeMin.x), Mathf.Abs(cubeMax.x - p.position.x)),
-                //Mathf.Min(Mathf.Abs(p.position.y - cubeMin.y), Mathf.Abs(cubeMax.y - p.position.y)),
+                Mathf.Min(Mathf.Abs(p.position.y - cubeMin.y), Mathf.Abs(cubeMax.y - p.position.y)),
                 Mathf.Min(Mathf.Abs(p.position.z - cubeMin.z), Mathf.Abs(cubeMax.z - p.position.z))
             );
 
@@ -101,5 +124,25 @@ public class PointGrid : MonoBehaviour
         points.Clear();
         points.Add(firstPoint);
         points.AddRange(rest);
+    }
+
+    private void DrawPlane(MyPlane plane, Vector3 center, float size)
+    {
+        Vector3 normal = plane.normal;
+        Vector3 tangent = Vector3.Cross(normal, Vector3.up);
+        if (tangent.sqrMagnitude < 0.001f)
+            tangent = Vector3.Cross(normal, Vector3.right);
+        tangent.Normalize();
+        Vector3 bitangent = Vector3.Cross(normal, tangent);
+
+        Vector3 c0 = center + (tangent + bitangent) * size;
+        Vector3 c1 = center + (tangent - bitangent) * size;
+        Vector3 c2 = center + (-tangent - bitangent) * size;
+        Vector3 c3 = center + (-tangent + bitangent) * size;
+
+        Gizmos.DrawLine(c0, c1);
+        Gizmos.DrawLine(c1, c2);
+        Gizmos.DrawLine(c2, c3);
+        Gizmos.DrawLine(c3, c0);
     }
 }

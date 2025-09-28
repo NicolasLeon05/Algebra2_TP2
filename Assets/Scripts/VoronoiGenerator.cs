@@ -20,14 +20,11 @@ public class VoronoiGenerator
 
             // Adds the bisector planes generated with the other points
             float lastDist = 0f;
-            foreach (var other in points)
+            foreach (var other in voronoiPoint.sortedPoints)
             {
-                if (other == voronoiPoint) continue;
-
-                //float dist = (other.position - voronoiPoint.position).magnitude;
-                //
-                //if (lastDist * Mathf.Sqrt(2f) < dist && lastDist > 0f)
-                //    break;
+                float dist = (other.position - voronoiPoint.position).magnitude;
+                if (lastDist > 0f && dist > lastDist * Mathf.Sqrt(2f))
+                    break;
 
                 // Bisector
                 Vector3 midPoint = (voronoiPoint.position + other.position) * 0.5f;
@@ -35,17 +32,15 @@ public class VoronoiGenerator
 
                 MyPlane bisector = new MyPlane(normal, midPoint);
 
-                // The plane normal points to the point
-                if (bisector.GetSide(voronoiPoint.position)) // Si p está del lado de la normal
-                {
-                    bisector.Flip(); // Invertimos para que mire hacia p
-                }
+                if (bisector.GetSide(voronoiPoint.position))
+                    bisector.Flip();
 
                 voronoiPoint.cellPlanes.Add(bisector);
 
-                //lastDist = dist;
+                lastDist = dist;
             }
         }
+
     }
 
     public static bool IsInsideCell(VoronoiPoint point, Vector3 target)
