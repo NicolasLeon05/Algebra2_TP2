@@ -21,6 +21,11 @@ namespace CustomMath
             get { return distance; }
             set { distance = value; }
         }
+
+        public Vector3 Point
+        {
+            get { return -distance * normal; }
+        }
         #endregion
 
         #region Constructors
