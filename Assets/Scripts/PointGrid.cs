@@ -10,6 +10,10 @@ public class PointGrid : MonoBehaviour
     [SerializeField] private int pointCount = 20;
     [SerializeField] private float pointRadius = 0.1f;
     [SerializeField] private Color pointColor = Color.white;
+    [SerializeField] private Color highlightColor = Color.red;
+
+    [Header("Target to check")]
+    [SerializeField] private Transform target;
 
     public List<VoronoiPoint> points = new List<VoronoiPoint>();
 
@@ -26,13 +30,17 @@ public class PointGrid : MonoBehaviour
         Gizmos.color = Color.green;
         Gizmos.DrawWireCube(transform.position + cubeSize * 0.5f, cubeSize);
 
-        Gizmos.color = pointColor;
         for (int i = 0; i < points.Count; i++)
         {
+            bool inside = false;
+
+            if (target != null)
+                inside = VoronoiGenerator.IsInsideCell(points[i], target.position);
+
+            Gizmos.color = inside ? highlightColor : pointColor;
             Gizmos.DrawSphere(points[i].position, pointRadius);
 
 #if UNITY_EDITOR
-            // For debug
             UnityEditor.Handles.Label(points[i].position + Vector3.up * 0.5f, i.ToString());
 #endif
         }
@@ -53,6 +61,8 @@ public class PointGrid : MonoBehaviour
         }
 
         OrderPoints();
+
+        VoronoiGenerator.BuildCells(points, transform.position, transform.position + cubeSize);
     }
 
     private void OrderPoints()
@@ -70,7 +80,7 @@ public class PointGrid : MonoBehaviour
         {
             float distToBorder = Mathf.Min(
                 Mathf.Min(Mathf.Abs(p.position.x - cubeMin.x), Mathf.Abs(cubeMax.x - p.position.x)),
-                Mathf.Min(Mathf.Abs(p.position.y - cubeMin.y), Mathf.Abs(cubeMax.y - p.position.y)),
+                //Mathf.Min(Mathf.Abs(p.position.y - cubeMin.y), Mathf.Abs(cubeMax.y - p.position.y)),
                 Mathf.Min(Mathf.Abs(p.position.z - cubeMin.z), Mathf.Abs(cubeMax.z - p.position.z))
             );
 
