@@ -30,38 +30,17 @@ namespace CustomMath
             distance = d;
         }
 
-        public MyPlane(Vector3 a, Vector3 b, Vector3 c)
-        {
-            normal = Vector3.Normalize(Vector3.Cross(b - a, c - a));
-            distance = -Vector3.Dot(normal, a);
-        }
-        #endregion
-
-
-        #region Operators
-        public static bool operator ==(MyPlane left, MyPlane right)
-        {
-            return Vector3.Dot(left.normal, right.normal) > 1f - math.EPSILON &&
-                    Mathf.Abs(left.distance - right.distance) < math.EPSILON;
-        }
-
-        public static bool operator !=(MyPlane left, MyPlane right)
-        {
-            return !(left == right);
-        }
         #endregion
 
         #region Functions
         public void SetNormalAndPosition(Vector3 inNormal, Vector3 inPoint)
         {
-            normal = inNormal.normalized;
-            distance = -Vector3.Dot(normal, inPoint);
+            
         }
 
         public void Set3Points(Vector3 a, Vector3 b, Vector3 c)
         {
-            normal = Vector3.Normalize(Vector3.Cross(b - a, c - a));
-            distance = -Vector3.Dot(normal, a);
+            
         }
 
         public void Flip()
