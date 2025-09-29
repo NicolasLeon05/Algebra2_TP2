@@ -14,19 +14,4 @@ public class VoronoiPoint
     {
         position = pos;
     }
-
-    public void SortNeighbors(List<VoronoiPoint> allPoints)
-    {
-        sortedPoints.Clear();
-        foreach (var other in allPoints)
-        {
-            if (other == this)
-                continue;
-            sortedPoints.Add(other);
-        }
-
-        sortedPoints.Sort((a, b) =>
-            (a.position - position).sqrMagnitude.CompareTo((b.position - position).sqrMagnitude)
-        );
-    }
 }

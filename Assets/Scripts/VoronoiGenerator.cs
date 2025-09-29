@@ -19,12 +19,21 @@ public class VoronoiGenerator
             voronoiPoint.cellPlanes.Add(new MyPlane(-Vector3.forward, new Vector3(0, 0, cubeMax.z)));
 
             // Adds the bisector planes generated with the other points
-            float lastDist = 0f;
-            foreach (var other in voronoiPoint.sortedPoints)
+            //List<VoronoiPoint> ordered = new List<VoronoiPoint>(points);
+            //ordered.Remove(voronoiPoint);
+            //ordered.Sort((a, b) =>
+            //{
+            //    float pointA = (a.position - voronoiPoint.position).sqrMagnitude;
+            //    float pointB = (b.position - voronoiPoint.position).sqrMagnitude;
+            //    return pointA.CompareTo(pointB);
+            //});
+            //
+            //float lastDist = 0f;
+            foreach (var other in points)
             {
-                float dist = (other.position - voronoiPoint.position).magnitude;
-                if (lastDist > 0f && dist > lastDist * Mathf.Sqrt(2f))
-                    break;
+                //float dist = (other.position - voronoiPoint.position).magnitude;
+                //if (lastDist > 0f && dist > lastDist * Mathf.Sqrt(2f))
+                //    break;
 
                 // Bisector
                 Vector3 midPoint = (voronoiPoint.position + other.position) * 0.5f;
@@ -37,7 +46,7 @@ public class VoronoiGenerator
 
                 voronoiPoint.cellPlanes.Add(bisector);
 
-                lastDist = dist;
+                //lastDist = dist;
             }
         }
 

@@ -50,18 +50,6 @@ public class PointGrid : MonoBehaviour
             UnityEditor.Handles.Label(points[i].position + Vector3.up * 0.5f, i.ToString());
 #endif
         }
-
-
-        if (selectedPointIndex >= 0 && selectedPointIndex < points.Count)
-        {
-            Gizmos.color = Color.cyan;
-            var selectedPoint = points[selectedPointIndex];
-            for (int i = 6; i < selectedPoint.cellPlanes.Count; i++)
-            {
-                Vector3 center = selectedPoint.cellPlanes[i].ClosestPointOnPlane(selectedPoint.position);
-                DrawPlane(selectedPoint.cellPlanes[i], center, 2f);
-            }
-        }
     }
 
     private void GeneratePoints()
@@ -82,10 +70,6 @@ public class PointGrid : MonoBehaviour
 
         VoronoiGenerator.BuildCells(points, transform.position, transform.position + cubeSize);
 
-        foreach (var p in points)
-        {
-            p.SortNeighbors(points);
-        }
     }
 
     private void OrderPoints()
@@ -126,23 +110,4 @@ public class PointGrid : MonoBehaviour
         points.AddRange(rest);
     }
 
-    private void DrawPlane(MyPlane plane, Vector3 center, float size)
-    {
-        Vector3 normal = plane.normal;
-        Vector3 tangent = Vector3.Cross(normal, Vector3.up);
-        if (tangent.sqrMagnitude < 0.001f)
-            tangent = Vector3.Cross(normal, Vector3.right);
-        tangent.Normalize();
-        Vector3 bitangent = Vector3.Cross(normal, tangent);
-
-        Vector3 c0 = center + (tangent + bitangent) * size;
-        Vector3 c1 = center + (tangent - bitangent) * size;
-        Vector3 c2 = center + (-tangent - bitangent) * size;
-        Vector3 c3 = center + (-tangent + bitangent) * size;
-
-        Gizmos.DrawLine(c0, c1);
-        Gizmos.DrawLine(c1, c2);
-        Gizmos.DrawLine(c2, c3);
-        Gizmos.DrawLine(c3, c0);
-    }
 }
