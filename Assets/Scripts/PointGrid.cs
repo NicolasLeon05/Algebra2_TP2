@@ -70,6 +70,8 @@ public class PointGrid : MonoBehaviour
 
         VoronoiGenerator.BuildCells(points, transform.position, transform.position + cubeSize);
 
+        foreach (VoronoiPoint point in points)
+            VoronoiGenerator.DebugCell(point);
     }
 
     private void OrderPoints()

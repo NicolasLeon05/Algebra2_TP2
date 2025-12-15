@@ -6,50 +6,72 @@ public class VoronoiGenerator
 {
     public static void BuildCells(List<VoronoiPoint> points, Vector3 cubeMin, Vector3 cubeMax)
     {
-        foreach (var voronoiPoint in points)
+        foreach (var p in points)
         {
-            voronoiPoint.cellPlanes.Clear();
+            p.cellPlanes.Clear();
 
-            // Adds the limits of the cointainer cube as planes
-            voronoiPoint.cellPlanes.Add(new MyPlane(Vector3.right, new Vector3(cubeMin.x, 0, 0)));
-            voronoiPoint.cellPlanes.Add(new MyPlane(-Vector3.right, new Vector3(cubeMax.x, 0, 0)));
-            voronoiPoint.cellPlanes.Add(new MyPlane(Vector3.up, new Vector3(0, cubeMin.y, 0)));
-            voronoiPoint.cellPlanes.Add(new MyPlane(-Vector3.up, new Vector3(0, cubeMax.y, 0)));
-            voronoiPoint.cellPlanes.Add(new MyPlane(Vector3.forward, new Vector3(0, 0, cubeMin.z)));
-            voronoiPoint.cellPlanes.Add(new MyPlane(-Vector3.forward, new Vector3(0, 0, cubeMax.z)));
+            // Bounding box
+            p.cellPlanes.Add(new MyPlane(Vector3.right, new Vector3(cubeMin.x, 0, 0)));
+            p.cellPlanes.Add(new MyPlane(-Vector3.right, new Vector3(cubeMax.x, 0, 0)));
+            p.cellPlanes.Add(new MyPlane(Vector3.up, new Vector3(0, cubeMin.y, 0)));
+            p.cellPlanes.Add(new MyPlane(-Vector3.up, new Vector3(0, cubeMax.y, 0)));
+            p.cellPlanes.Add(new MyPlane(Vector3.forward, new Vector3(0, 0, cubeMin.z)));
+            p.cellPlanes.Add(new MyPlane(-Vector3.forward, new Vector3(0, 0, cubeMax.z)));
 
-            // Adds the bisector planes generated with the other points
-            //List<VoronoiPoint> ordered = new List<VoronoiPoint>(points);
-            //ordered.Remove(voronoiPoint);
-            //ordered.Sort((a, b) =>
-            //{
-            //    float pointA = (a.position - voronoiPoint.position).sqrMagnitude;
-            //    float pointB = (b.position - voronoiPoint.position).sqrMagnitude;
-            //    return pointA.CompareTo(pointB);
-            //});
-            //
-            //float lastDist = 0f;
-            foreach (var other in points)
+            foreach (var q in points)
             {
-                //float dist = (other.position - voronoiPoint.position).magnitude;
-                //if (lastDist > 0f && dist > lastDist * Mathf.Sqrt(2f))
-                //    break;
+                if (q == p) continue;
 
-                // Bisector
-                Vector3 midPoint = (voronoiPoint.position + other.position) * 0.5f;
-                Vector3 normal = (other.position - voronoiPoint.position).normalized;
+                Vector3 dir = q.position - p.position;
+                float dist = dir.magnitude;
+                if (dist < 1e-5f) continue;
 
-                MyPlane bisector = new MyPlane(normal, midPoint);
+                Vector3 normal = dir / dist;
+                Vector3 midpoint = (p.position + q.position) * 0.5f;
 
-                if (bisector.GetSide(voronoiPoint.position))
-                    bisector.Flip();
+                MyPlane plane = new MyPlane(normal, midpoint);
 
-                voronoiPoint.cellPlanes.Add(bisector);
+                // Asegurar que p quede del lado negativo
+                if (plane.GetDistanceToPoint(p.position) > 0f)
+                    plane.Flip();
 
-                //lastDist = dist;
+                // CLAVE: solo agregar si RECORTA la celda
+                if (!IsPlaneRedundant(plane, p, points))
+                {
+                    p.cellPlanes.Add(plane);
+                }
             }
         }
+    }
 
+    private static bool IsPlaneRedundant(MyPlane candidate, VoronoiPoint owner, List<VoronoiPoint> allPoints)
+    {
+        // Si ningún otro punto válido queda del lado incorrecto,
+        // el plano no aporta frontera
+        foreach (var other in allPoints)
+        {
+            if (other == owner) continue;
+
+            // Si el otro punto ya está descartado por planos previos, ignorar
+            bool inside = true;
+            foreach (var plane in owner.cellPlanes)
+            {
+                if (plane.GetSide(other.position) != plane.GetSide(owner.position))
+                {
+                    inside = false;
+                    break;
+                }
+            }
+
+            if (!inside)
+                continue;
+
+            // Si este plano separa a otro punto válido recorta
+            if (candidate.GetSide(other.position) != candidate.GetSide(owner.position))
+                return false;
+        }
+
+        return true; // no recorta nada
     }
 
     public static bool IsInsideCell(VoronoiPoint point, Vector3 target)
@@ -60,5 +82,18 @@ public class VoronoiGenerator
                 return false;
         }
         return true;
+    }
+
+    public static void DebugCell(VoronoiPoint point)
+    {
+        Debug.Log($"--- Voronoi Cell Debug ---");
+        Debug.Log($"Point position: {point.position}");
+        Debug.Log($"Plane count: {point.cellPlanes.Count}");
+
+        for (int i = 0; i < point.cellPlanes.Count; i++)
+        {
+            MyPlane p = point.cellPlanes[i];
+            Debug.Log($"Plane {i}: normal={p.normal}, d={p.distance}, point={p.Point}");
+        }
     }
 }
