@@ -1,77 +1,73 @@
 using System.Collections.Generic;
 using UnityEngine;
 using CustomMath;
-
+//El ultimo que me delimito una frontera, si hasta maximo esa distancia por raiz de 2 no se me delimito una nueva frontera
+// dejo de intentar generar nuevas porque ya es seguro que no se me van a generar nuevas delimitaciones
 public class VoronoiGenerator
 {
     public static void BuildCells(List<VoronoiPoint> points, Vector3 cubeMin, Vector3 cubeMax)
     {
-        foreach (var p in points)
+        foreach (var point in points)
         {
-            p.cellPlanes.Clear();
+            point.cellPlanes.Clear();
 
-            // Bounding box
-            p.cellPlanes.Add(new MyPlane(Vector3.right, new Vector3(cubeMin.x, 0, 0)));
-            p.cellPlanes.Add(new MyPlane(-Vector3.right, new Vector3(cubeMax.x, 0, 0)));
-            p.cellPlanes.Add(new MyPlane(Vector3.up, new Vector3(0, cubeMin.y, 0)));
-            p.cellPlanes.Add(new MyPlane(-Vector3.up, new Vector3(0, cubeMax.y, 0)));
-            p.cellPlanes.Add(new MyPlane(Vector3.forward, new Vector3(0, 0, cubeMin.z)));
-            p.cellPlanes.Add(new MyPlane(-Vector3.forward, new Vector3(0, 0, cubeMax.z)));
+            //Container cube planes
+            point.cellPlanes.Add(new MyPlane(Vector3.right, new Vector3(cubeMin.x, 0, 0)));
+            point.cellPlanes.Add(new MyPlane(-Vector3.right, new Vector3(cubeMax.x, 0, 0)));
+            point.cellPlanes.Add(new MyPlane(Vector3.up, new Vector3(0, cubeMin.y, 0)));
+            point.cellPlanes.Add(new MyPlane(-Vector3.up, new Vector3(0, cubeMax.y, 0)));
+            point.cellPlanes.Add(new MyPlane(Vector3.forward, new Vector3(0, 0, cubeMin.z)));
+            point.cellPlanes.Add(new MyPlane(-Vector3.forward, new Vector3(0, 0, cubeMax.z)));
 
-            foreach (var q in points)
+            //Order points by distance
+            List<VoronoiPoint> ordered = new List<VoronoiPoint>(points);
+            ordered.Remove(point);
+
+            ordered.Sort((a, b) =>
+                (a.position - point.position).sqrMagnitude
+                .CompareTo((b.position - point.position).sqrMagnitude)
+            );
+
+            float lastEffectiveDistance = 0f;
+
+            foreach (var other in ordered)
             {
-                if (q == p) continue;
+                float dist = Vector3.Distance(point.position, other.position);
 
-                Vector3 dir = q.position - p.position;
-                float dist = dir.magnitude;
-                if (dist < 1e-5f) continue;
+                //if (lastEffectiveDistance > 0f && dist > lastEffectiveDistance * Mathf.Sqrt(2f))
+                //    break;
 
-                Vector3 normal = dir / dist;
-                Vector3 midpoint = (p.position + q.position) * 0.5f;
+                //Bisector plane
+                Vector3 midPoint = (point.position + other.position) * 0.5f;
+                Vector3 normal = (other.position - point.position).normalized;
+                MyPlane bisector = new MyPlane(normal, midPoint);
 
-                MyPlane plane = new MyPlane(normal, midpoint);
+                if (bisector.GetSide(point.position))
+                    bisector.Flip();
 
-                // Asegurar que p quede del lado negativo
-                if (plane.GetDistanceToPoint(p.position) > 0f)
-                    plane.Flip();
-
-                // CLAVE: solo agregar si RECORTA la celda
-                if (!IsPlaneRedundant(plane, p, points))
+                if (PlaneCutsCell(point, bisector))
                 {
-                    p.cellPlanes.Add(plane);
+                    point.cellPlanes.Add(bisector);
+                    lastEffectiveDistance = dist;
                 }
+
             }
         }
     }
 
-    private static bool IsPlaneRedundant(MyPlane candidate, VoronoiPoint owner, List<VoronoiPoint> allPoints)
+    public static bool PlaneCutsCell(VoronoiPoint point, MyPlane bisector)
     {
-        // Si ningún otro punto válido queda del lado incorrecto,
-        // el plano no aporta frontera
-        foreach (var other in allPoints)
+        bool divides = false;
+        foreach (var other in point.cellPlanes)
         {
-            if (other == owner) continue;
-
-            // Si el otro punto ya está descartado por planos previos, ignorar
-            bool inside = true;
-            foreach (var plane in owner.cellPlanes)
+            if (!other.SameSide(point.position, bisector.Point))
             {
-                if (plane.GetSide(other.position) != plane.GetSide(owner.position))
-                {
-                    inside = false;
-                    break;
-                }
+                divides = true;
+                break;
             }
-
-            if (!inside)
-                continue;
-
-            // Si este plano separa a otro punto válido recorta
-            if (candidate.GetSide(other.position) != candidate.GetSide(owner.position))
-                return false;
         }
 
-        return true; // no recorta nada
+        return divides;
     }
 
     public static bool IsInsideCell(VoronoiPoint point, Vector3 target)
