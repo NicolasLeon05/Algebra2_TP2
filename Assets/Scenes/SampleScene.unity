@@ -407,238 +407,106 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cubeSize: {x: 2, y: 1, z: 2}
-  pointCount: 8
+  pointCount: 5
   pointRadius: 0.1
   pointColor: {r: 1, g: 1, b: 1, a: 1}
   highlightColor: {r: 1, g: 0, b: 0, a: 1}
   target: {fileID: 2054495000}
-  selectedPointIndex: 0
+  selectedPointIndex: 1
   regenerateOnValidate: 1
   points:
-  - position: {x: 3.6935697, y: 0.26366824, z: 8.772569}
+  - position: {x: 1.1648544, y: 0.0967592, z: 0.923586}
+    cellPlanes:
+    - normal: {x: -1, y: -0, z: -0}
+      distance: 0
+    - normal: {x: 0, y: 0, z: 1}
+      distance: -2
+    - normal: {x: -0, y: -0, z: -1}
+      distance: 0
+    - normal: {x: 0, y: 1, z: 0}
+      distance: -1
+    - normal: {x: 1, y: 0, z: 0}
+      distance: -2
+    - normal: {x: -0.5873277, y: 0.45687652, z: 0.66806436}
+      distance: -0.6664923
+    - normal: {x: -0, y: -1, z: -0}
+      distance: 0
+  - position: {x: 1.4321046, y: 0.72225404, z: 1.714472}
+    cellPlanes:
+    - normal: {x: -0, y: -0, z: -1}
+      distance: 0
+    - normal: {x: -1, y: -0, z: -0}
+      distance: 0
+    - normal: {x: -0, y: -1, z: -0}
+      distance: 0
+    - normal: {x: -0.9097461, y: -0.20439078, z: -0.36136743}
+      distance: 1.3556465
+    - normal: {x: 1, y: 0, z: 0}
+      distance: -2
+    - normal: {x: -0.25619474, y: -0.59961975, z: -0.7581692}
+      distance: 1.5782591
+    - normal: {x: 0, y: 0, z: 1}
+      distance: -2
+    - normal: {x: 0, y: 1, z: 0}
+      distance: -1
+  - position: {x: 0.13229299, y: 0.43022805, z: 1.1981636}
     cellPlanes:
     - normal: {x: 1, y: 0, z: 0}
-      distance: -2.7985482
-    - normal: {x: -1, y: -0, z: -0}
-      distance: 4.798548
-    - normal: {x: 0, y: 1, z: 0}
-      distance: -0
-    - normal: {x: -0, y: -1, z: -0}
-      distance: 1
-    - normal: {x: 0, y: 0, z: 1}
-      distance: -6.8017845
+      distance: -2
     - normal: {x: -0, y: -0, z: -1}
-      distance: 8.8017845
-    - normal: {x: 0.45639881, y: 0.87797385, z: -0.14443707}
-      distance: -0.70653415
-    - normal: {x: 0.16623117, y: 0.18687056, z: -0.96821827}
-      distance: 7.501313
-    - normal: {x: 0.8941944, y: -0.106568396, z: -0.43480974}
-      distance: 0.082379796
-    - normal: {x: 0.7723381, y: 0.5642638, z: -0.29171932}
-      distance: -0.96590596
-    - normal: {x: -0.26936156, y: 0.1158375, z: -0.95604706}
-      distance: 8.810416
-    - normal: {x: -0.14770019, y: 0.3574269, z: -0.922188}
-      distance: 7.985293
-    - normal: {x: 0.43512997, y: 0.42733327, z: -0.7924949}
-      distance: 4.5657682
-  - position: {x: 3.7450366, y: 0.36267513, z: 8.756281}
+      distance: 0
+    - normal: {x: 0.8906747, y: 0.20969254, z: -0.40339515}
+      distance: -0.68981993
+    - normal: {x: 0, y: 0, z: 1}
+      distance: -2
+    - normal: {x: 0.9097461, y: 0.20439078, z: 0.36136743}
+      distance: -1.3556465
+    - normal: {x: 0, y: 1, z: 0}
+      distance: -1
+    - normal: {x: 0.9225267, y: -0.2979328, z: -0.2453173}
+      distance: -0.25957224
+    - normal: {x: -0, y: -1, z: -0}
+      distance: 0
+    - normal: {x: -1, y: -0, z: -0}
+      distance: 0
+  - position: {x: 1.8514869, y: 0.8349798, z: 0.4195242}
     cellPlanes:
-    - normal: {x: 1, y: 0, z: 0}
-      distance: -2.7985482
     - normal: {x: -1, y: -0, z: -0}
-      distance: 4.798548
-    - normal: {x: 0, y: 1, z: 0}
-      distance: -0
-    - normal: {x: -0, y: -1, z: -0}
-      distance: 1
+      distance: 0
     - normal: {x: 0, y: 0, z: 1}
-      distance: -6.8017845
+      distance: -2
+    - normal: {x: -0.7231433, y: -0.052314665, z: 0.688714}
+      distance: 0.058944803
+    - normal: {x: -0.8906747, y: -0.20969254, z: 0.40339515}
+      distance: 0.68981993
+    - normal: {x: -0, y: -1, z: -0}
+      distance: 0
+    - normal: {x: -0.609165, y: -0.6549328, z: 0.44719237}
+      distance: 0.92352366
     - normal: {x: -0, y: -0, z: -1}
-      distance: 8.8017845
-    - normal: {x: -0.45639881, y: -0.87797385, z: 0.14443707}
-      distance: 0.70653415
-    - normal: {x: 0.09286164, y: 0.038481046, z: -0.99493515}
-      distance: 8.038041
-    - normal: {x: 0.87257767, y: -0.22369148, z: -0.43424687}
-      distance: 0.17649318
-    - normal: {x: 0.79867667, y: 0.51874435, z: -0.3049917}
-      distance: -0.9827007
-    - normal: {x: -0.2007997, y: 0.2778124, z: -0.93941456}
-      distance: 8.339926
-    - normal: {x: -0.31909427, y: 0.024488742, z: -0.9474066}
-      distance: 8.944623
-    - normal: {x: 0.42014524, y: 0.374101, z: -0.8267566}
-      distance: 4.90106
-  - position: {x: 3.8030128, y: 0.38669997, z: 8.135114}
+      distance: 0
+    - normal: {x: 0, y: 1, z: 0}
+      distance: -1
+    - normal: {x: 1, y: 0, z: 0}
+      distance: -2
+  - position: {x: 0.35502148, y: 0.72672033, z: 1.8447421}
     cellPlanes:
-    - normal: {x: 1, y: 0, z: 0}
-      distance: -2.7985482
-    - normal: {x: -1, y: -0, z: -0}
-      distance: 4.798548
-    - normal: {x: 0, y: 1, z: 0}
-      distance: -0
-    - normal: {x: -0, y: -1, z: -0}
-      distance: 1
-    - normal: {x: 0, y: 0, z: 1}
-      distance: -6.8017845
     - normal: {x: -0, y: -0, z: -1}
-      distance: 8.8017845
-    - normal: {x: -0.49907854, y: 0.5004021, z: -0.7074733}
-      distance: 7.185692
-    - normal: {x: -0.7106319, y: 0.0040586274, z: -0.7035523}
-      distance: 8.142407
-    - normal: {x: -0.09286164, y: -0.038481046, z: 0.99493515}
-      distance: -8.038041
-    - normal: {x: -0.16623117, y: -0.18687056, z: 0.96821827}
-      distance: -7.501313
-    - normal: {x: 0.60931253, y: 0.57826465, z: -0.54253876}
-      distance: 1.4865507
-    - normal: {x: 0.9085734, y: -0.2827901, z: 0.30744785}
-      distance: -6.236966
-    - normal: {x: 0.7731454, y: 0.517232, z: 0.36703855}
-      distance: -6.578442
-  - position: {x: 4.511485, y: 0.16619062, z: 8.37485}
-    cellPlanes:
+      distance: 0
     - normal: {x: 1, y: 0, z: 0}
-      distance: -2.7985482
-    - normal: {x: -1, y: -0, z: -0}
-      distance: 4.798548
-    - normal: {x: 0, y: 1, z: 0}
-      distance: -0
+      distance: -2
+    - normal: {x: 0.7231433, y: 0.052314665, z: -0.688714}
+      distance: -0.058944803
     - normal: {x: -0, y: -1, z: -0}
-      distance: 1
-    - normal: {x: 0, y: 0, z: 1}
-      distance: -6.8017845
-    - normal: {x: -0, y: -0, z: -1}
-      distance: 8.8017845
-    - normal: {x: -0.013200015, y: 0.99105304, z: 0.13281438}
-      distance: -1.5647305
-    - normal: {x: -0.9085734, y: 0.2827901, z: -0.30744785}
-      distance: 6.236966
-    - normal: {x: -0.87257767, y: 0.22369148, z: 0.43424687}
-      distance: -0.17649318
-    - normal: {x: -0.8941944, y: 0.106568396, z: 0.43480974}
-      distance: -0.082379796
-    - normal: {x: -0.24583802, y: 0.68971866, z: -0.68106675}
-      distance: 6.2146335
-    - normal: {x: -0.775598, y: 0.39082867, z: -0.49568206}
-      distance: 6.952255
-    - normal: {x: -0.8544659, y: 0.1716117, z: -0.49034423}
-      distance: 7.283813
-  - position: {x: 4.502317, y: 0.85453236, z: 8.467097}
-    cellPlanes:
-    - normal: {x: 1, y: 0, z: 0}
-      distance: -2.7985482
+      distance: 0
+    - normal: {x: 0.5873277, y: -0.45687652, z: -0.66806436}
+      distance: 0.6664923
     - normal: {x: -1, y: -0, z: -0}
-      distance: 4.798548
+      distance: 0
     - normal: {x: 0, y: 1, z: 0}
-      distance: -0
-    - normal: {x: -0, y: -1, z: -0}
-      distance: 1
+      distance: -1
     - normal: {x: 0, y: 0, z: 1}
-      distance: -6.8017845
-    - normal: {x: -0, y: -0, z: -1}
-      distance: 8.8017845
-    - normal: {x: 0.013200015, y: -0.99105304, z: -0.13281438}
-      distance: 1.5647305
-    - normal: {x: -0.29111913, y: -0.026931187, z: -0.9563077}
-      distance: 9.038183
-    - normal: {x: -0.7731454, y: -0.517232, z: -0.36703855}
-      distance: 6.578442
-    - normal: {x: -0.79867667, y: -0.51874435, z: 0.3049917}
-      distance: 0.9827007
-    - normal: {x: -0.7723381, y: -0.5642638, z: 0.29171932}
-      distance: 0.96590596
-    - normal: {x: -0.79379696, y: -0.15780959, z: -0.5873522}
-      distance: 8.069083
-    - normal: {x: -0.7861698, y: -0.33267462, z: -0.5208307}
-      distance: 7.534094
-  - position: {x: 3.4021554, y: 0.3889894, z: 7.73825}
-    cellPlanes:
-    - normal: {x: 1, y: 0, z: 0}
-      distance: -2.7985482
-    - normal: {x: -1, y: -0, z: -0}
-      distance: 4.798548
-    - normal: {x: 0, y: 1, z: 0}
-      distance: -0
-    - normal: {x: -0, y: -1, z: -0}
-      distance: 1
-    - normal: {x: 0, y: 0, z: 1}
-      distance: -6.8017845
-    - normal: {x: -0, y: -0, z: -1}
-      distance: 8.8017845
-    - normal: {x: 0.42323813, y: 0.9055328, z: 0.029662421}
-      distance: -2.171949
-    - normal: {x: 0.7106319, y: -0.0040586274, z: 0.7035523}
-      distance: -8.142407
-    - normal: {x: 0.8906406, y: 0.45414057, z: -0.02270808}
-      distance: -3.5202994
-    - normal: {x: 0.31909427, y: -0.024488742, z: 0.9474066}
-      distance: -8.944623
-    - normal: {x: 0.26936156, y: -0.1158375, z: 0.95604706}
-      distance: -8.810416
-    - normal: {x: 0.8544659, y: -0.1716117, z: 0.49034423}
-      distance: -7.283813
-    - normal: {x: 0.7861698, y: 0.33267462, z: 0.5208307}
-      distance: -7.534094
-  - position: {x: 3.529338, y: 0.66110075, z: 7.7471633}
-    cellPlanes:
-    - normal: {x: 1, y: 0, z: 0}
-      distance: -2.7985482
-    - normal: {x: -1, y: -0, z: -0}
-      distance: 4.798548
-    - normal: {x: 0, y: 1, z: 0}
-      distance: -0
-    - normal: {x: -0, y: -1, z: -0}
-      distance: 1
-    - normal: {x: 0, y: 0, z: 1}
-      distance: -6.8017845
-    - normal: {x: -0, y: -0, z: -1}
-      distance: 8.8017845
-    - normal: {x: -0.42323813, y: -0.9055328, z: -0.029662421}
-      distance: 2.171949
-    - normal: {x: 0.49907854, y: -0.5004021, z: 0.7074733}
-      distance: -7.185692
-    - normal: {x: 0.9734369, y: 0.22530596, z: -0.040716812}
-      distance: -3.6514232
-    - normal: {x: 0.2007997, y: -0.2778124, z: 0.93941456}
-      distance: -8.339926
-    - normal: {x: 0.14770019, y: -0.3574269, z: 0.922188}
-      distance: -7.985293
-    - normal: {x: 0.79379696, y: 0.15780959, z: 0.5873522}
-      distance: -8.069083
-    - normal: {x: 0.775598, y: -0.39082867, z: 0.49568206}
-      distance: -6.952255
-  - position: {x: 4.273677, y: 0.83338106, z: 7.716029}
-    cellPlanes:
-    - normal: {x: 1, y: 0, z: 0}
-      distance: -2.7985482
-    - normal: {x: -1, y: -0, z: -0}
-      distance: 4.798548
-    - normal: {x: 0, y: 1, z: 0}
-      distance: -0
-    - normal: {x: -0, y: -1, z: -0}
-      distance: 1
-    - normal: {x: 0, y: 0, z: 1}
-      distance: -6.8017845
-    - normal: {x: -0, y: -0, z: -1}
-      distance: 8.8017845
-    - normal: {x: -0.9734369, y: -0.22530596, z: 0.040716812}
-      distance: 3.6514232
-    - normal: {x: -0.60931253, y: -0.57826465, z: 0.54253876}
-      distance: -1.4865507
-    - normal: {x: 0.29111913, y: 0.026931187, z: 0.9563077}
-      distance: -9.038183
-    - normal: {x: 0.24583802, y: -0.68971866, z: 0.68106675}
-      distance: -6.2146335
-    - normal: {x: -0.8906406, y: -0.45414057, z: 0.02270808}
-      distance: 3.5202994
-    - normal: {x: -0.42014524, y: -0.374101, z: 0.8267566}
-      distance: -4.90106
-    - normal: {x: -0.43512997, y: -0.42733327, z: 0.7924949}
-      distance: -4.5657682
+      distance: -2
 --- !u!4 &787571693
 Transform:
   m_ObjectHideFlags: 0
@@ -648,7 +516,7 @@ Transform:
   m_GameObject: {fileID: 787571691}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.7985482, y: 0, z: 6.8017845}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -805,8 +673,8 @@ Transform:
   m_GameObject: {fileID: 2054494996}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4.301, y: 0.086, z: 7.373}
-  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
+  m_LocalPosition: {x: 0.86, y: 0.584, z: 1.334}
+  m_LocalScale: {x: 0.16, y: 0.16, z: 0.16}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}

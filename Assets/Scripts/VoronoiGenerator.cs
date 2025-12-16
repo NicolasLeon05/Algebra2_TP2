@@ -49,7 +49,7 @@ public class VoronoiGenerator
                 Vector3 normal = (other.position - point.position).normalized;
                 MyPlane bisector = new MyPlane(normal, midPoint);
 
-                if (bisector.GetSide(point.position))
+                if (bisector.GetDistanceToPoint(point.position) > 0f)
                     bisector.Flip();
 
                 point.cellPlanes.Add(bisector);
@@ -63,11 +63,14 @@ public class VoronoiGenerator
             );
 
             //Filter irrelevant planes
-            var finalPlanes = point.cellPlanes;
+            List<MyPlane> finalPlanes = new List<MyPlane>();
             foreach (var plane in point.cellPlanes)
             {
-                if (!PlaneCutsCell(point, plane))
-                    finalPlanes.Remove(plane);
+                if (plane.GetDistanceToPoint(point.position) > 0f)
+                    plane.Flip();
+
+                if (PlaneCutsCell(point, plane))
+                    finalPlanes.Add(plane);
             }
             point.cellPlanes = finalPlanes;
         }
@@ -91,15 +94,20 @@ public class VoronoiGenerator
 
     public static bool IsInsideCell(VoronoiPoint point, Vector3 target)
     {
-        const float EPS = float.Epsilon;
+        const float EPS = 1e-3f;
 
-        for (int i = 6; i < point.cellPlanes.Count; i++)
+        foreach (var plane in point.cellPlanes)
         {
-            if (point.cellPlanes[i].GetDistanceToPoint(target) > EPS)
+            float d = plane.GetDistanceToPoint(point.position);
+            if (d > 0f)
+                Debug.LogError("Plano mal orientado: " + plane);
+
+            if (plane.GetDistanceToPoint(target) > EPS)
                 return false;
         }
         return true;
     }
+
 
 
     public static void DebugCell(VoronoiPoint point)
