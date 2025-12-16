@@ -3,6 +3,11 @@ using UnityEngine;
 using CustomMath;
 //El ultimo que me delimito una frontera, si hasta maximo esa distancia por raiz de 2 no se me delimito una nueva frontera
 // dejo de intentar generar nuevas porque ya es seguro que no se me van a generar nuevas delimitaciones
+
+//FORMA 1 (EXACTA, LENTA): Interseccion plano y volumen en el espacio
+//FORMA 2 (NO EXACTA, RAPIDA): Ordenar por distancias eculideas (no puede ser negativo)
+//a los varicentros (termino correcto para centro en algebra, en este caso) de los planos
+// 
 public class VoronoiGenerator
 {
     public static void BuildCells(List<VoronoiPoint> points, Vector3 cubeMin, Vector3 cubeMax)
@@ -30,10 +35,12 @@ public class VoronoiGenerator
 
             float lastEffectiveDistance = 0f;
 
+            //Add all bisector planes
             foreach (var other in ordered)
             {
                 float dist = Vector3.Distance(point.position, other.position);
 
+                // distancia a closestPointOnPlane
                 //if (lastEffectiveDistance > 0f && dist > lastEffectiveDistance * Mathf.Sqrt(2f))
                 //    break;
 
@@ -45,13 +52,24 @@ public class VoronoiGenerator
                 if (bisector.GetSide(point.position))
                     bisector.Flip();
 
-                if (PlaneCutsCell(point, bisector))
-                {
-                    point.cellPlanes.Add(bisector);
-                    lastEffectiveDistance = dist;
-                }
-
+                point.cellPlanes.Add(bisector);
+                lastEffectiveDistance = dist;
             }
+
+            //Order planes from furthest to closest
+            point.cellPlanes.Sort((a, b) =>
+                Mathf.Abs(b.GetDistanceToPoint(point.position))
+                .CompareTo(Mathf.Abs(a.GetDistanceToPoint(point.position)))
+            );
+
+            //Filter irrelevant planes
+            var finalPlanes = point.cellPlanes;
+            foreach (var plane in point.cellPlanes)
+            {
+                if (!PlaneCutsCell(point, plane))
+                    finalPlanes.Remove(plane);
+            }
+            point.cellPlanes = finalPlanes;
         }
     }
 
@@ -60,7 +78,8 @@ public class VoronoiGenerator
         bool divides = false;
         foreach (var other in point.cellPlanes)
         {
-            if (!other.SameSide(point.position, bisector.Point))
+            //                                  closest point on plane del bisector
+            if (!other.SameSide(point.position, bisector.ClosestPointOnPlane(point.position)))
             {
                 divides = true;
                 break;
@@ -72,13 +91,16 @@ public class VoronoiGenerator
 
     public static bool IsInsideCell(VoronoiPoint point, Vector3 target)
     {
-        foreach (var plane in point.cellPlanes)
+        const float EPS = float.Epsilon;
+
+        for (int i = 6; i < point.cellPlanes.Count; i++)
         {
-            if (plane.GetSide(target) != plane.GetSide(point.position))
+            if (point.cellPlanes[i].GetDistanceToPoint(target) > EPS)
                 return false;
         }
         return true;
     }
+
 
     public static void DebugCell(VoronoiPoint point)
     {
