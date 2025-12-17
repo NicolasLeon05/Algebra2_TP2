@@ -118,15 +118,12 @@ namespace CustomMath
 
         public override bool Equals(object other)
         {
-            if (!(other is MyPlane))
-                return false;
-
-            return this == (MyPlane)other;
+            throw new NotImplementedException();
         }
 
         public bool Equals(MyPlane other)
         {
-            return this == other;
+            throw new NotImplementedException();
         }
 
         public override int GetHashCode()
