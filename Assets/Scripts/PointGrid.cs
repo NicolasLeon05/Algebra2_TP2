@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
+using CustomMath;
+using UnityEngine.UIElements;
 
 public class PointGrid : MonoBehaviour
 {
@@ -19,8 +21,8 @@ public class PointGrid : MonoBehaviour
     [SerializeField] private int selectedPointIndex = -1;
     [SerializeField] private bool regenerateOnValidate = true;
 
-    [Header("Plane gizmos size")]
-    [SerializeField] private float size;
+    [Header("Plane Gizmos size")]
+    [SerializeField] private float size = 5f;
 
     public List<VoronoiPoint> points = new List<VoronoiPoint>();
 
@@ -55,15 +57,15 @@ public class PointGrid : MonoBehaviour
 
         //Draw selected points planes
         Gizmos.color = Color.magenta;
-        int i = 0;
+        int j = 0;
         foreach (var plane in points[selectedPointIndex].cellPlanes)
         {
             //DrawPlane(plane.Point, plane.normal);
 
             Vector3 center;
-            if (i <= 5)
-                center = plane.ClosestPointOnPlane((transform.position + transform.position + cubeSize) / 2);
-            else
+            //if (j <= 5)
+            //    center = plane.ClosestPointOnPlane((transform.position + transform.position + cubeSize) / 2);
+            //else
                 center = plane.ClosestPointOnPlane(points[selectedPointIndex].position);
             //Vector3 center = plane.normal * plane.distance;
             Vector3 axisA = Vector3.Cross(plane.normal, Vector3.right).normalized;
@@ -74,9 +76,10 @@ public class PointGrid : MonoBehaviour
             Gizmos.DrawLine(center - axisA * size - axisB * size, center - axisA * size + axisB * size);
             Gizmos.DrawLine(center - axisA * size + axisB * size, center + axisA * size + axisB * size);
 
-            i++;
+            j++;
         }
     }
+
     private void GeneratePoints()
     {
         points.Clear();
@@ -95,6 +98,8 @@ public class PointGrid : MonoBehaviour
 
         VoronoiGenerator.BuildCells(points, transform.position, transform.position + cubeSize);
 
+        foreach (VoronoiPoint point in points)
+            VoronoiGenerator.DebugCell(point);
     }
 
     private void OrderPoints()
