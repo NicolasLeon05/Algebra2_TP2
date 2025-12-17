@@ -57,18 +57,26 @@ public class PointGrid : MonoBehaviour
 
         //Draw selected points planes
         Gizmos.color = Color.magenta;
+        int j = 0;
         foreach (var plane in points[selectedPointIndex].cellPlanes)
         {
             //DrawPlane(plane.Point, plane.normal);
-            Vector3 center = plane.normal * plane.distance;
-            //Vector3 center = plane.Point;
+
+            Vector3 center;
+            //if (j <= 5)
+            //    center = plane.ClosestPointOnPlane((transform.position + transform.position + cubeSize) / 2);
+            //else
+                center = plane.ClosestPointOnPlane(points[selectedPointIndex].position);
+            //Vector3 center = plane.normal * plane.distance;
             Vector3 axisA = Vector3.Cross(plane.normal, Vector3.right).normalized;
             Vector3 axisB = Vector3.Cross(plane.normal, axisA).normalized;
-            
+
             Gizmos.DrawLine(center + axisA * size + axisB * size, center + axisA * size - axisB * size);
             Gizmos.DrawLine(center + axisA * size - axisB * size, center - axisA * size - axisB * size);
             Gizmos.DrawLine(center - axisA * size - axisB * size, center - axisA * size + axisB * size);
             Gizmos.DrawLine(center - axisA * size + axisB * size, center + axisA * size + axisB * size);
+
+            j++;
         }
     }
 

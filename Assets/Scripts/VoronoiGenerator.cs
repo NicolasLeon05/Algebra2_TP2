@@ -81,7 +81,7 @@ public class VoronoiGenerator
         foreach (var other in point.cellPlanes)
         {
             //                                  closest point on plane del bisector
-            if (!other.SameSide(point.position, bisector.ClosestPointOnPlane(point.position)))
+            if (!other.SameSide(other.ClosestPointOnPlane(point.position), bisector.ClosestPointOnPlane(point.position)))
             {
                 divides = true;
                 break;
