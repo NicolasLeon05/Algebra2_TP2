@@ -4,10 +4,11 @@ using CustomMath;
 //El ultimo que me delimito una frontera, si hasta maximo esa distancia por raiz de 2 no se me delimito una nueva frontera
 // dejo de intentar generar nuevas porque ya es seguro que no se me van a generar nuevas delimitaciones
 
-//FORMA 1 (EXACTA, LENTA): Interseccion plano y volumen en el espacio
+//FORMA 1 (EXACTA, LENTA): Interseccion plano y volumen en el espacio (vertices entre planos)
+// algoritmo 
 //FORMA 2 (NO EXACTA, RAPIDA): Ordenar por distancias eculideas (no puede ser negativo)
-//a los varicentros (termino correcto para centro en algebra, en este caso) de los planos
-// 
+//a los varicentros (termino correcto para centro en algebra, en este caso) de los planos. Obtener vertices entre planos y 
+//FORMA 3: 
 public class VoronoiGenerator
 {
     public static void BuildCells(List<VoronoiPoint> points, Vector3 cubeMin, Vector3 cubeMax)
