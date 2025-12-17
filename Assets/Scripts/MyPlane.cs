@@ -39,6 +39,12 @@ namespace CustomMath
             distance -= Vector3.Dot(normal, translation);
         }
 
+        public Vector3 ClosestPointOnPlane(Vector3 point)
+        {
+            float dist = GetDistanceToPoint(point);
+            return point - normal * dist;
+        }
+
         public float GetDistanceToPoint(Vector3 point)
         {
             return Vector3.Dot(normal, point) + distance;

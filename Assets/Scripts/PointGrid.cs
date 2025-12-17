@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using CustomMath;
 
 public class PointGrid : MonoBehaviour
 {
@@ -19,6 +18,9 @@ public class PointGrid : MonoBehaviour
     [Header("Debug Options")]
     [SerializeField] private int selectedPointIndex = -1;
     [SerializeField] private bool regenerateOnValidate = true;
+
+    [Header("Plane gizmos size")]
+    [SerializeField] private float size;
 
     public List<VoronoiPoint> points = new List<VoronoiPoint>();
 
@@ -50,8 +52,31 @@ public class PointGrid : MonoBehaviour
             UnityEditor.Handles.Label(points[i].position + Vector3.up * 0.5f, i.ToString());
 #endif
         }
-    }
 
+        //Draw selected points planes
+        Gizmos.color = Color.magenta;
+        int i = 0;
+        foreach (var plane in points[selectedPointIndex].cellPlanes)
+        {
+            //DrawPlane(plane.Point, plane.normal);
+
+            Vector3 center;
+            if (i <= 5)
+                center = plane.ClosestPointOnPlane((transform.position + transform.position + cubeSize) / 2);
+            else
+                center = plane.ClosestPointOnPlane(points[selectedPointIndex].position);
+            //Vector3 center = plane.normal * plane.distance;
+            Vector3 axisA = Vector3.Cross(plane.normal, Vector3.right).normalized;
+            Vector3 axisB = Vector3.Cross(plane.normal, axisA).normalized;
+
+            Gizmos.DrawLine(center + axisA * size + axisB * size, center + axisA * size - axisB * size);
+            Gizmos.DrawLine(center + axisA * size - axisB * size, center - axisA * size - axisB * size);
+            Gizmos.DrawLine(center - axisA * size - axisB * size, center - axisA * size + axisB * size);
+            Gizmos.DrawLine(center - axisA * size + axisB * size, center + axisA * size + axisB * size);
+
+            i++;
+        }
+    }
     private void GeneratePoints()
     {
         points.Clear();
@@ -108,6 +133,33 @@ public class PointGrid : MonoBehaviour
         points.Clear();
         points.Add(firstPoint);
         points.AddRange(rest);
+    }
+
+    void DrawPlane(Vector3 position, Vector3 normal)
+    {
+
+        Vector3 v3;
+
+        if (normal.normalized != Vector3.forward)
+            v3 = Vector3.Cross(normal, Vector3.forward).normalized * normal.magnitude;
+        else
+            v3 = Vector3.Cross(normal, Vector3.up).normalized * normal.magnitude; ;
+
+        var corner0 = position + v3;
+        var corner2 = position - v3;
+
+        var q = Quaternion.AngleAxis(90.0f, normal);
+        v3 = q * v3;
+        var corner1 = position + v3;
+        var corner3 = position - v3;
+
+        Debug.DrawLine(corner0, corner2, Color.magenta);
+        Debug.DrawLine(corner1, corner3, Color.magenta);
+        Debug.DrawLine(corner0, corner1, Color.magenta);
+        Debug.DrawLine(corner1, corner2, Color.magenta);
+        Debug.DrawLine(corner2, corner3, Color.magenta);
+        Debug.DrawLine(corner3, corner0, Color.magenta);
+        Debug.DrawRay(position, normal, Color.red);
     }
 
 }
