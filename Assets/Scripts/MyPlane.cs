@@ -54,6 +54,13 @@ namespace CustomMath
         {
             return GetDistanceToPoint(point) > 0f;
         }
+
+        public bool SameSide(Vector3 inPt0, Vector3 inPt1)
+        {
+            float d0 = GetDistanceToPoint(inPt0);
+            float d1 = GetDistanceToPoint(inPt1);
+            return (d0 > 0f && d1 > 0f) || (d0 <= 0f && d1 <= 0f);
+        }
         #endregion
 
         #region Internals
