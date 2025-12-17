@@ -33,13 +33,12 @@ public class VoronoiGenerator
                 .CompareTo((b.position - point.position).sqrMagnitude)
             );
 
-            float lastEffectiveDistance = 0f;
+            //float lastEffectiveDistance = 0f;
 
             //Add all bisector planes
             foreach (var other in ordered)
             {
-                float dist = Vector3.Distance(point.position, other.position);
-
+                //float dist = Vector3.Distance(point.position, other.position);
                 // distancia a closestPointOnPlane
                 //if (lastEffectiveDistance > 0f && dist > lastEffectiveDistance * Mathf.Sqrt(2f))
                 //    break;
@@ -49,11 +48,11 @@ public class VoronoiGenerator
                 Vector3 normal = (other.position - point.position).normalized;
                 MyPlane bisector = new MyPlane(normal, midPoint);
 
-                if (bisector.GetDistanceToPoint(point.position) > 0f)
+                if (bisector.GetSide(point.position))
                     bisector.Flip();
 
                 point.cellPlanes.Add(bisector);
-                lastEffectiveDistance = dist;
+                //lastEffectiveDistance = dist;
             }
 
             //Order planes from furthest to closest

@@ -415,98 +415,102 @@ MonoBehaviour:
   selectedPointIndex: 1
   regenerateOnValidate: 1
   points:
-  - position: {x: 1.1648544, y: 0.0967592, z: 0.923586}
+  - position: {x: 0.055088997, y: 0.5873074, z: 0.85602725}
     cellPlanes:
-    - normal: {x: -1, y: -0, z: -0}
-      distance: 0
+    - normal: {x: 1, y: 0, z: 0}
+      distance: -2
     - normal: {x: 0, y: 0, z: 1}
       distance: -2
+    - normal: {x: 0.91440094, y: 0.08100216, z: -0.39662278}
+      distance: -0.6787395
     - normal: {x: -0, y: -0, z: -1}
+      distance: 0
+    - normal: {x: 0.9490369, y: -0.21717729, z: -0.22839224}
+      distance: -0.32143903
+    - normal: {x: -0, y: -1, z: -0}
+      distance: 0
+    - normal: {x: 0, y: 1, z: 0}
+      distance: -1
+    - normal: {x: 0.46536532, y: -0.17442895, z: -0.8677613}
+      distance: 0.5730944
+    - normal: {x: -1, y: -0, z: -0}
+      distance: 0
+  - position: {x: 0.28455114, y: 0.50130004, z: 0.42815185}
+    cellPlanes:
+    - normal: {x: 1, y: 0, z: 0}
+      distance: -2
+    - normal: {x: 0, y: 0, z: 1}
+      distance: -2
+    - normal: {x: 0.9670221, y: 0.15640317, z: -0.20101303}
+      distance: -1.0190977
+    - normal: {x: 0.03862606, y: -0.3430961, z: 0.9385058}
+      distance: -0.76274645
+    - normal: {x: -0, y: -1, z: -0}
+      distance: 0
+    - normal: {x: 0, y: 1, z: 0}
+      distance: -1
+    - normal: {x: -0, y: -0, z: -1}
+      distance: 0
+    - normal: {x: -1, y: -0, z: -0}
+      distance: 0
+  - position: {x: 0.32487106, y: 0.1431582, z: 1.4078138}
+    cellPlanes:
+    - normal: {x: 1, y: 0, z: 0}
+      distance: -2
+    - normal: {x: -0, y: -0, z: -1}
+      distance: 0
+    - normal: {x: 0.7073175, y: 0.29690468, z: -0.6415213}
+      distance: -0.36819634
+    - normal: {x: 0, y: 1, z: 0}
+      distance: -1
+    - normal: {x: 0.71167856, y: 0.15571378, z: -0.6850306}
+      distance: 0.11070618
+    - normal: {x: 0, y: 0, z: 1}
+      distance: -2
+    - normal: {x: -0.03862606, y: 0.3430961, z: -0.9385058}
+      distance: 0.76274645
+    - normal: {x: -1, y: -0, z: -0}
+      distance: 0
+    - normal: {x: -0, y: -1, z: -0}
+      distance: 0
+  - position: {x: 1.1791612, y: 0.3300751, z: 0.58551157}
+    cellPlanes:
+    - normal: {x: 0, y: 0, z: 1}
+      distance: -2
+    - normal: {x: -1, y: -0, z: -0}
+      distance: 0
+    - normal: {x: 1, y: 0, z: 0}
+      distance: -2
+    - normal: {x: 0, y: 1, z: 0}
+      distance: -1
+    - normal: {x: -0.71167856, y: -0.15571378, z: 0.6850306}
+      distance: -0.11070618
+    - normal: {x: -0.9490369, y: 0.21717729, z: 0.22839224}
+      distance: 0.32143903
+    - normal: {x: -0, y: -0, z: -1}
+      distance: 0
+    - normal: {x: -0, y: -1, z: -0}
+      distance: 0
+  - position: {x: 1.7381587, y: 0.73640203, z: 0.12599325}
+    cellPlanes:
+    - normal: {x: 0, y: 0, z: 1}
+      distance: -2
+    - normal: {x: -1, y: -0, z: -0}
+      distance: 0
+    - normal: {x: -0.7073175, y: -0.29690468, z: 0.6415213}
+      distance: 0.36819634
+    - normal: {x: -0.91440094, y: -0.08100216, z: 0.39662278}
+      distance: 0.6787395
+    - normal: {x: -0.9670221, y: -0.15640317, z: 0.20101303}
+      distance: 1.0190977
+    - normal: {x: -0, y: -1, z: -0}
       distance: 0
     - normal: {x: 0, y: 1, z: 0}
       distance: -1
     - normal: {x: 1, y: 0, z: 0}
       distance: -2
-    - normal: {x: -0.5873277, y: 0.45687652, z: 0.66806436}
-      distance: -0.6664923
-    - normal: {x: -0, y: -1, z: -0}
-      distance: 0
-  - position: {x: 1.4321046, y: 0.72225404, z: 1.714472}
-    cellPlanes:
     - normal: {x: -0, y: -0, z: -1}
       distance: 0
-    - normal: {x: -1, y: -0, z: -0}
-      distance: 0
-    - normal: {x: -0, y: -1, z: -0}
-      distance: 0
-    - normal: {x: -0.9097461, y: -0.20439078, z: -0.36136743}
-      distance: 1.3556465
-    - normal: {x: 1, y: 0, z: 0}
-      distance: -2
-    - normal: {x: -0.25619474, y: -0.59961975, z: -0.7581692}
-      distance: 1.5782591
-    - normal: {x: 0, y: 0, z: 1}
-      distance: -2
-    - normal: {x: 0, y: 1, z: 0}
-      distance: -1
-  - position: {x: 0.13229299, y: 0.43022805, z: 1.1981636}
-    cellPlanes:
-    - normal: {x: 1, y: 0, z: 0}
-      distance: -2
-    - normal: {x: -0, y: -0, z: -1}
-      distance: 0
-    - normal: {x: 0.8906747, y: 0.20969254, z: -0.40339515}
-      distance: -0.68981993
-    - normal: {x: 0, y: 0, z: 1}
-      distance: -2
-    - normal: {x: 0.9097461, y: 0.20439078, z: 0.36136743}
-      distance: -1.3556465
-    - normal: {x: 0, y: 1, z: 0}
-      distance: -1
-    - normal: {x: 0.9225267, y: -0.2979328, z: -0.2453173}
-      distance: -0.25957224
-    - normal: {x: -0, y: -1, z: -0}
-      distance: 0
-    - normal: {x: -1, y: -0, z: -0}
-      distance: 0
-  - position: {x: 1.8514869, y: 0.8349798, z: 0.4195242}
-    cellPlanes:
-    - normal: {x: -1, y: -0, z: -0}
-      distance: 0
-    - normal: {x: 0, y: 0, z: 1}
-      distance: -2
-    - normal: {x: -0.7231433, y: -0.052314665, z: 0.688714}
-      distance: 0.058944803
-    - normal: {x: -0.8906747, y: -0.20969254, z: 0.40339515}
-      distance: 0.68981993
-    - normal: {x: -0, y: -1, z: -0}
-      distance: 0
-    - normal: {x: -0.609165, y: -0.6549328, z: 0.44719237}
-      distance: 0.92352366
-    - normal: {x: -0, y: -0, z: -1}
-      distance: 0
-    - normal: {x: 0, y: 1, z: 0}
-      distance: -1
-    - normal: {x: 1, y: 0, z: 0}
-      distance: -2
-  - position: {x: 0.35502148, y: 0.72672033, z: 1.8447421}
-    cellPlanes:
-    - normal: {x: -0, y: -0, z: -1}
-      distance: 0
-    - normal: {x: 1, y: 0, z: 0}
-      distance: -2
-    - normal: {x: 0.7231433, y: 0.052314665, z: -0.688714}
-      distance: -0.058944803
-    - normal: {x: -0, y: -1, z: -0}
-      distance: 0
-    - normal: {x: 0.5873277, y: -0.45687652, z: -0.66806436}
-      distance: 0.6664923
-    - normal: {x: -1, y: -0, z: -0}
-      distance: 0
-    - normal: {x: 0, y: 1, z: 0}
-      distance: -1
-    - normal: {x: 0, y: 0, z: 1}
-      distance: -2
 --- !u!4 &787571693
 Transform:
   m_ObjectHideFlags: 0
@@ -673,7 +677,7 @@ Transform:
   m_GameObject: {fileID: 2054494996}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.86, y: 0.584, z: 1.334}
+  m_LocalPosition: {x: 0.774, y: 0.584, z: 1.228}
   m_LocalScale: {x: 0.16, y: 0.16, z: 0.16}
   m_ConstrainProportionsScale: 1
   m_Children: []
