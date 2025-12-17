@@ -44,6 +44,12 @@ namespace CustomMath
             return Vector3.Dot(normal, point) + distance;
         }
 
+        public Vector3 ClosestPointOnPlane(Vector3 point)
+        {
+            float dist = Mathf.Abs(GetDistanceToPoint(point));
+            return point - normal * dist;
+        }
+
         public bool GetSide(Vector3 point)
         {
             return GetDistanceToPoint(point) > 0f;

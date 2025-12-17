@@ -1,6 +1,7 @@
-using System.Collections.Generic;
-using UnityEngine;
 using CustomMath;
+using System.Collections.Generic;
+using System.Drawing;
+using UnityEngine;
 
 public class VoronoiGenerator
 {
@@ -18,19 +19,28 @@ public class VoronoiGenerator
             voronoiPoint.cellPlanes.Add(new MyPlane(Vector3.forward, new Vector3(0, 0, cubeMin.z)));
             voronoiPoint.cellPlanes.Add(new MyPlane(-Vector3.forward, new Vector3(0, 0, cubeMax.z)));
 
+
+            float lastDistance = 0.0f;
             // Adds the bisector planes generated with the other points
             foreach (var other in points)
             {
+
+
                 // Bisector
                 Vector3 midPoint = (voronoiPoint.position + other.position) * 0.5f;
                 Vector3 normal = (other.position - voronoiPoint.position).normalized;
 
                 MyPlane bisector = new MyPlane(normal, midPoint);
+                float dist = Vector3.Distance(voronoiPoint.position, bisector.ClosestPointOnPlane(voronoiPoint.position));
+
+                if (lastDistance != 0 && dist > lastDistance * Mathf.Sqrt(2f))
+                    break;
 
                 if (bisector.GetSide(voronoiPoint.position))
                     bisector.Flip();
 
                 voronoiPoint.cellPlanes.Add(bisector);
+                lastDistance = dist;
             }
         }
 
@@ -44,5 +54,18 @@ public class VoronoiGenerator
                 return false;
         }
         return true;
+    }
+
+    public static void DebugCell(VoronoiPoint point)
+    {
+        Debug.Log($"--- Voronoi Cell Debug ---");
+        Debug.Log($"Point position: {point.position}");
+        Debug.Log($"Plane count: {point.cellPlanes.Count}");
+
+        for (int i = 0; i < point.cellPlanes.Count; i++)
+        {
+            MyPlane p = point.cellPlanes[i];
+            Debug.Log($"Plane {i}: normal={p.normal}, d={p.distance}, point={p.Point}");
+        }
     }
 }
